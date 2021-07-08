@@ -22,7 +22,10 @@ public class BoardItem {
     private Date date;
     
     @Column
-    private String title, content, author;
+    private String title, author;
+    
+    @Column(columnDefinition = "TEXT")
+    private String content;
     
 	@ManyToOne(optional=false)
 	@JoinColumn(name="board_id")

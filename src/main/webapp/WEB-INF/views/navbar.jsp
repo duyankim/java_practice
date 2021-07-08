@@ -22,10 +22,6 @@
 	
 </head>
 <body>
-	<%
-		String pageTitle = request.getParameter("pageTitle");
-		String pageSubTitle = request.getParameter("pageSubTitle");
-	%>
 	<!-- Navigation-->
 	<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
 		<div class="container">
@@ -63,6 +59,10 @@
 			<div class="row">
 				<div class="col-lg-8 col-md-10 mx-auto">
 					<div class="site-heading">
+						<%
+							String pageTitle = request.getParameter("pageTitle");
+							String pageSubTitle = request.getParameter("pageSubTitle");
+						%>
 						<h1><%=pageTitle%></h1>
 						<span class="subheading"><%=pageSubTitle%></span>
 					</div>

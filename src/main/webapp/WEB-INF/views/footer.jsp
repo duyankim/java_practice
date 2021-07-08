@@ -22,30 +22,18 @@
 	<link href="${path }/resoreces/css/search.css" rel="stylesheet" />
 </head>
 <body>
-	<jsp:include page="navbar.jsp">
-		<jsp:param name="pageTitle" value="nihao" />
-		<jsp:param name="pageSubTitle" value="subtitle" />
-	</jsp:include>
-	
-	<!-- Board List -->
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-8 col-md-10 mx-auto">
-				<c:forEach var="menu" items="${menu}">
-					<div class="post-preview">
-						<a href="postlist.jsp?board=${menu.id}">
-							<h2 class="post-title">${menu.title}<hr /></h2>
-						</a>
-					</div>
-				</c:forEach>
+	<!-- Pagination-->
+
+	<!-- Footer-->
+	<footer>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 col-md-10 mx-auto">
+					<p class="copyright text-muted">Copyright &copy; kopo03</p>
+				</div>
 			</div>
 		</div>
-	</div>
-	
-	<!-- Footer-->
-	<jsp:include page="footer.jsp">
-	</jsp:include>
-
+	</footer>
 	<!-- Bootstrap core JS-->
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 	<script

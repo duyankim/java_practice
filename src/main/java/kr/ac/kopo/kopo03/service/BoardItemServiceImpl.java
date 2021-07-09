@@ -13,7 +13,6 @@ import kr.ac.kopo.kopo03.domain.BoardItem;
 import kr.ac.kopo.kopo03.repository.BoardItemRepository;
 
 @Service
-
 public class BoardItemServiceImpl implements BoardItemService{
 	
 	private final BoardItemRepository boardItemRepository;

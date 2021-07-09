@@ -33,7 +33,7 @@
 			<div class="col-lg-8 col-md-10 mx-auto">
 				<c:forEach var="menu" items="${menu}">
 					<div class="post-preview">
-						<a href="postlist.jsp?board=${menu.id}">
+						<a href="postlist?boardid=${menu.id}">
 							<h2 class="post-title">${menu.title}<hr /></h2>
 						</a>
 					</div>
@@ -43,8 +43,7 @@
 	</div>
 	
 	<!-- Footer-->
-	<jsp:include page="footer.jsp">
-	</jsp:include>
+	<jsp:include page="footer.jsp" />
 
 	<!-- Bootstrap core JS-->
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>

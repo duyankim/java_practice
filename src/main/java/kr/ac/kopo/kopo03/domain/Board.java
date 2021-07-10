@@ -11,9 +11,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
+
+@Data
+@RequiredArgsConstructor
 @Entity
 public class Board {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
@@ -24,40 +29,4 @@ public class Board {
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="board")
 	private List<BoardItem> boardItems;
     
-    public Board() {
-        
-    }
-    
-    public Board(String title) {
-        this.title = title;
-    }
-
-    public Board(int id, String title) {
-        this.id = id;
-        this.title = title;
-    }
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public List<BoardItem> getBoardItems() {
-		return boardItems;
-	}
-
-	public void setBoardItems(List<BoardItem> boardItems) {
-		this.boardItems = boardItems;
-	}
 }

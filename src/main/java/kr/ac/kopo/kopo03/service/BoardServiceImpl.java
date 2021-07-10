@@ -11,10 +11,9 @@ import kr.ac.kopo.kopo03.repository.BoardRepository;
 
 @Service
 public class BoardServiceImpl implements BoardService{
-	
+
 	private final BoardRepository boardRepository;
 	
-	@Autowired
 	public BoardServiceImpl(BoardRepository boardRepository) {
 		this.boardRepository = boardRepository;
 	}

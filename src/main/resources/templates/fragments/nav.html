@@ -1,0 +1,30 @@
+<!-- Navigation-->
+<nav th:fragment="nav"
+	class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+	<div class="container">
+		<a class="navbar-brand" href="index.jsp">Cinematic</a>
+		<button class="navbar-toggler navbar-toggler-right" type="button"
+			data-toggle="collapse" data-target="#navbarResponsive"
+			aria-controls="navbarResponsive" aria-expanded="false"
+			aria-label="Toggle navigation">
+			Menu <i class="fas fa-bars"></i>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarResponsive">
+			<ul class="navbar-nav ml-auto">
+				<li class="nav-item"><a class="nav-link" href="index.jsp">Home</a></li>
+				<li th:each="menu : ${menu}" class='nav-item'><a
+					th:text="${menu.title}" href="postlist.html?boardid=${menu.id}"
+					class="nav-link"></a>
+				</li>
+			</ul>
+			<div class="searchbar">
+				<form class="searchForm" method="post" action="search.jsp">
+					<input class="search_input" type="text" name="search"
+						placeholder="Search..." required>
+					<button type="submit" class="search_icon"></button>
+					<i class="fas fa-search"></i>
+				</form>
+			</div>
+		</div>
+	</div>
+</nav>

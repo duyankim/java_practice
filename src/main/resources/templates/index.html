@@ -3,18 +3,21 @@
 <head th:replace="fragments/head.html :: head"></head>
 <body>
 	<nav th:replace="fragments/nav.html :: nav"></nav>
-	<header th:replace="fragments/header.html :: header(title='Genres', subtitle='view all genres')"></header>
+	<header
+		th:replace="fragments/header.html :: header(title='Genres', subtitle='view all genres')"></header>
 
 	<!-- Board List -->
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-8 col-md-10 mx-auto">
-				<div th:each="menu : ${menu}" class="post-preview">
-					<a href="postlist?boardid=${menu.id}">
-						<h2 th:text="${menu.title}" class="post-title"></h2>
-						<hr />
-					</a>
-				</div>
+				<section th:each="menu : ${menu}" th:remove="tag">
+					<div class="post-preview">
+						<a th:href="@{post/list(boardid=${menu.id})}">
+							<h2 th:text="${menu.title}" class="post-title"></h2>
+							<hr />
+						</a>
+					</div>
+				</section>
 			</div>
 		</div>
 	</div>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head.html :: head"></head>
+<body>
+	<nav th:replace="fragments/nav.html :: nav"></nav>
+	<header
+		th:replace="fragments/header.html :: header(title=${board.title}, subtitle='view all reviews of '+${board.title}+' films')"></header>
+
+	<!-- Main Content-->
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 col-md-10 mx-auto">
+				<div th:each="post : ${postlist}" class='post-preview'>
+					<a th:href="@{view(postid=${post.id})}">
+						<h2 th:text="${post.title}" class='post-title'></h2>
+						<h3 th:text="${post.content}" class='post-subtitle'></h3>
+					</a>
+					<p class='post-meta'>
+						Posted by <span th:text="${post.author}"></span> on
+					<p th:remove="tag"
+						th:text="${#dates.format(post.date,'yyyy-MM-dd')}" />
+					</p>
+					<hr />
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<!-- Buttons -->
+	<div class="container">
+		<div class="d-flex justify-content-end">
+			<div class="btn-group" role="group" aria-label="">
+				<form method="GET" th:object="${board}" th:action="@{/post/write}">
+					<button type="submit" class="btn btn-primary" name="id" th:attr="value=${board.id}">write post</button>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<footer th:replace="fragments/footer.html :: footer"></footer>
+</body>
+</html>

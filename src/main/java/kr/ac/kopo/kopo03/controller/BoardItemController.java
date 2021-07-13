@@ -6,10 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.ac.kopo.kopo03.domain.Board;
 import kr.ac.kopo.kopo03.domain.BoardItem;
@@ -47,6 +48,8 @@ public class BoardItemController {
 		}
 		
 		Board board = boardService.viewOne(boardId).get();
+		List<Board> boards = boardService.viewAll();
+	    model.addAttribute("menu", boards);
 	    model.addAttribute("postlist", shortenContentList);
 	    model.addAttribute("board", board);
 	    return "postlist";
@@ -55,15 +58,38 @@ public class BoardItemController {
 	@GetMapping("/view")
 	public String postview(Model model, @RequestParam("postid") int postId) {
 	    BoardItem post = boardItemService.viewOne(postId).get();
+		List<Board> boards = boardService.viewAll();
+	    model.addAttribute("menu", boards);
 	    model.addAttribute("boarditem", post);
 	    return "postview";
 	}
 	
 	@GetMapping("/write")
-	public String writeForm(Model model, Board board) {
-		Board b = boardService.viewOne(board.getId()).get();
-		model.addAttribute("board", b);
+	public String writeForm(@ModelAttribute Board board, Model model) {
+		List<Board> boards = boardService.viewAll();
+	    model.addAttribute("menu", boards);
+	    model.addAttribute("boarditem", new BoardItem());
+		board.setTitle(boardService.viewOne(board.getId()).get().getTitle());
 		return "postwrite";
+	}
+	
+	@PostMapping("/create/{idx}")
+	public String createPost(@ModelAttribute BoardItem boarditem, @PathVariable("idx") int boardid) {
+		Board b = boardService.viewOne(boardid).get();
+		boarditem.setBoard(b);
+		boardItemService.create(boarditem);
+		return "redirect:/post/view?postid=" + boarditem.getId();
+	}
+	
+	@GetMapping("/update")
+	public String updateForm(Model model, @RequestParam("postid") int postId) {
+	    BoardItem post = boardItemService.viewOne(postId).get();
+		List<Board> boards = boardService.viewAll();
+		int boardid = post.getBoard().getId();
+	    model.addAttribute("menu", boards);
+	    model.addAttribute("boarditem", post);
+	    model.addAttribute("boardid", boardid);
+	    return "postupdate";
 	}
 
 }

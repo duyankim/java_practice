@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +24,7 @@ public class BoardItem {
     @Column
     private int id;
     
-    @Column
+    @Column(name = "date", nullable = false)
     private Date date;
     
     @Column
@@ -35,5 +36,9 @@ public class BoardItem {
 	@ManyToOne(optional=false)
 	@JoinColumn(name="board_id")
 	private Board board;
-    
+
+	@PrePersist
+	void createAt() {
+		this.date= new Date();
+	}
 }

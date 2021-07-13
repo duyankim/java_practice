@@ -44,16 +44,4 @@ public class BoardServiceImpl implements BoardService{
 		return boardRepository.findAll();
 	}
 
-	@Override
-	public String[] viewAllTitles() {
-		List<Board> boards = boardRepository.findAll();
-		String[] titles = new String[boards.size()];
-		int i = 0;
-		for (Board b : boards) {
-			titles[i] = b.getTitle();
-			i++;
-		}
-		return titles;
-	}
-
 }

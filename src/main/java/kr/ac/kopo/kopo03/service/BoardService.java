@@ -14,5 +14,4 @@ public interface BoardService {
     void delete(Board board);
     Optional<Board> viewOne(int id);
     List<Board> viewAll();
-    String[] viewAllTitles();
 }

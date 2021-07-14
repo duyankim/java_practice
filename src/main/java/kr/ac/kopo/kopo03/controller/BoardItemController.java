@@ -91,5 +91,13 @@ public class BoardItemController {
 	    model.addAttribute("boardid", boardid);
 	    return "postupdate";
 	}
-
+	
+	@PostMapping("/update/{idx}")
+	public String updatePost(@ModelAttribute BoardItem boarditem, @PathVariable("idx") int postId) {
+		Board b = boardService.viewOne(postId).get();
+		boarditem.setBoard(b);
+		boarditem.setDate(boardItemService.viewOne(postId).get().getDate());
+		boardItemService.create(boarditem);
+		return "redirect:/post/view?postid=" + boarditem.getId();
+	}
 }

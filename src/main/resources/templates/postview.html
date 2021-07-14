@@ -7,20 +7,27 @@
 		th:replace="fragments/header.html :: 
 		header(title=${boarditem.title}, subtitle='Posted by '+${boarditem.author}+' on '+${#dates.format(boarditem.date,'yyyy-MM-dd')})">
 	</header>
-	
+
 	<!-- Post Content-->
 	<article>
 		<div class="container">
 			<div class="row">
-				<div th:text=${boarditem.content} 
-					class="col-lg-8 col-md-10 mx-auto"
-					style="white-space: pre-line">
-				</div>
+				<div th:text=${boarditem.content} class="col-lg-8 col-md-10 mx-auto"
+					style="white-space: pre-line"></div>
 			</div>
+			<div class="d-flex justify-content-end">
+				<a href="postupdate.html"
+					th:href="@{/post/update(postid=${boarditem.id})}">
+					<button type="button" class="btn btn-secondary">update</button>
+				</a>
+			</div>
+			
 		</div>
 	</article>
-	<hr />
 
 	<footer th:replace="fragments/footer.html :: footer"></footer>
+	<th:block layout:fragment="script">
+		<script th:replace="fragments/scripts.html :: script"></script>
+	</th:block>
 </body>
 </html>

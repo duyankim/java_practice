@@ -51,7 +51,7 @@
 					<div class="d-flex justify-content-end">
 						<input type="submit" class="btn btn-primary" value="update">
 				</form>
-				<a href="postlist.html" th:href="@{/post/list(boardid=${boardid})}">
+				<a href="postlist.html" th:href="@{/post/delete/} + ${boardid}+ @{/} + ${boarditem.id}">
 					<button type="button" class="btn btn-secondary">delete</button>
 				</a>
 			</div>

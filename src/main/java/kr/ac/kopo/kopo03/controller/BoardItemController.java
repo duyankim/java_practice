@@ -56,8 +56,8 @@ public class BoardItemController {
 	}
 	
 	@GetMapping("/view")
-	public String postview(Model model, @RequestParam("postid") int postId) {
-	    BoardItem post = boardItemService.viewOne(postId).get();
+	public String postview(Model model, @RequestParam("postid") int postid) {
+	    BoardItem post = boardItemService.viewOne(postid).get();
 		List<Board> boards = boardService.viewAll();
 	    model.addAttribute("menu", boards);
 	    model.addAttribute("boarditem", post);
@@ -82,8 +82,8 @@ public class BoardItemController {
 	}
 	
 	@GetMapping("/update")
-	public String updateForm(Model model, @RequestParam("postid") int postId) {
-	    BoardItem post = boardItemService.viewOne(postId).get();
+	public String updateForm(Model model, @RequestParam("postid") int postid) {
+	    BoardItem post = boardItemService.viewOne(postid).get();
 		List<Board> boards = boardService.viewAll();
 		int boardid = post.getBoard().getId();
 	    model.addAttribute("menu", boards);
@@ -93,11 +93,17 @@ public class BoardItemController {
 	}
 	
 	@PostMapping("/update/{idx}")
-	public String updatePost(@ModelAttribute BoardItem boarditem, @PathVariable("idx") int postId) {
-		Board b = boardService.viewOne(postId).get();
+	public String updatePost(@ModelAttribute BoardItem boarditem, @PathVariable("idx") int postid) {
+		Board b = boardService.viewOne(postid).get();
 		boarditem.setBoard(b);
-		boarditem.setDate(boardItemService.viewOne(postId).get().getDate());
+		boarditem.setDate(boardItemService.viewOne(postid).get().getDate());
 		boardItemService.create(boarditem);
 		return "redirect:/post/view?postid=" + boarditem.getId();
+	}
+	
+	@GetMapping("/delete/{boardid}/{postid}")
+	public String deletePost(@PathVariable("postid") int postid, @PathVariable("boardid") int boardid) {
+		boardItemService.delete(boardItemService.viewOne(postid).get());
+		return "redirect:/post/list?boardid=" + boardid;
 	}
 }

@@ -21,9 +21,36 @@
 						th:text="${#dates.format(post.date,'yyyy-MM-dd')}" />
 					<hr />
 				</div>
-
 			</div>
 		</div>
+	</div>
+	
+	<!-- Pagination-->
+	<div class="container">
+		<nav aria-label="Page navigation">
+			<ul th:with="begin=${1}, end=${maxPage}"
+				class="pagination justify-content-center">
+				<li class="page-item">
+					<a class="page-link"
+						th:href="@{list(boardid=${board.id})}"
+						tabindex="-1" aria-disabled="true">&laquo;</a>
+				</li>
+		        <li th:each="page: ${#numbers.sequence(begin, end)}" 
+		        	class="page-item">
+           	 		<a th:class="page-link" 
+           	 			th:text="${page}" 
+           	 			th:href="@{list(boardid=${board.id}, page=${page-1})}"></a>
+        		</li>
+        		
+				<li class="page-item">
+					<a class="page-link"
+						th:href="@{list(boardid=${board.id}, page=${end-1})}"
+						aria-label="Next"> 
+					<span aria-hidden="true">&raquo;</span>
+					</a>
+				</li>
+			</ul>
+		</nav>
 	</div>
 
 	<!-- Buttons -->

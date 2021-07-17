@@ -1,8 +1,5 @@
 package kr.ac.kopo.kopo03.service;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,16 +40,14 @@ public class BoardItemServiceImpl implements BoardItemService{
 	}
 
 	@Override
-	public List<BoardItem> viewOnePageResult(int board_id, Integer page, Integer size) {
-		PageRequest pageRequest = PageRequest.of(page, size);
-		return boardItemRepository.findByBoard(board_id, pageRequest).getContent();
+	public List<BoardItem> viewAllInOneBoard(int board_id) {
+		return boardItemRepository.findByBoard_id(board_id);
 	}
 
 	@Override
-	public String getCurrentDate() {
-		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		Date date = new Date();
-		return dateFormat.format(date);
+	public List<BoardItem> viewOnePageResult(int board_id, Integer page) {
+		PageRequest pageRequest = PageRequest.of(page, 5);
+		return boardItemRepository.findByBoard_id(board_id, pageRequest).getContent();
 	}
 
 	@Override

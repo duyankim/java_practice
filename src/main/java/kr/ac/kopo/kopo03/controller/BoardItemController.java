@@ -32,9 +32,8 @@ public class BoardItemController {
 	private BoardService boardService;
 	
 	@GetMapping("/list")
-	public String postlist(Model model, 
-						@RequestParam("boardid") int boardId,
-						@RequestParam(value = "page", defaultValue = "0") int pageNum) {
+	public String postlist(Model model, @RequestParam("boardid") int boardId,
+					@RequestParam(value = "page", defaultValue = "0") int pageNum) {
 		List<BoardItem> shortenContentList = boardItemService.viewOnePageResult(boardId, pageNum);
 		for (BoardItem item : shortenContentList) {
 			int end;
@@ -52,8 +51,7 @@ public class BoardItemController {
 		List<Board> boards = boardService.viewAll();
 		Board board = boardService.viewOne(boardId).get();
 		int allPostsCnt = boardItemService.viewAllInOneBoard(boardId).size();
-		int maxPage = allPostsCnt % 5 == 0 ? allPostsCnt / 5 : (int)(allPostsCnt / 5) + 1;
-		
+		int maxPage = allPostsCnt % 5 == 0 && allPostsCnt != 0 ? allPostsCnt / 5 : (int)(allPostsCnt / 5) + 1;		
 		model.addAttribute("postlist", shortenContentList);
 		model.addAttribute("menu", boards);
 	    model.addAttribute("board", board);

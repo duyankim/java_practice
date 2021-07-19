@@ -110,4 +110,8 @@ public class BoardItemController {
 		boardItemService.delete(boardItemService.viewOne(postid).get());
 		return "redirect:/post/list?boardid=" + boardid;
 	}
+
+	@GetMapping("/search")
+	public String searchPost(@RequestParam("keyword") String keyword, Model model) {
+		return "postsearch";
 }

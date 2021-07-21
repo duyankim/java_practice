@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.ac.kopo.kopo03.domain.Board;
 import kr.ac.kopo.kopo03.domain.BoardItem;
+import kr.ac.kopo.kopo03.repository.BoardItemSpecs;
 import kr.ac.kopo.kopo03.service.BoardItemService;
 import kr.ac.kopo.kopo03.service.BoardService;
 import lombok.extern.slf4j.Slf4j;
@@ -32,8 +33,9 @@ public class BoardItemController {
 	private BoardService boardService;
 	
 	@GetMapping("/list")
-	public String postlist(Model model, @RequestParam("boardid") int boardId,
-					@RequestParam(value = "page", defaultValue = "0") int pageNum) {
+	public String postlist(Model model, 
+						@RequestParam("boardid") int boardId,
+						@RequestParam(value = "page", defaultValue = "0") int pageNum) {
 		List<BoardItem> shortenContentList = boardItemService.viewOnePageResult(boardId, pageNum);
 		for (BoardItem item : shortenContentList) {
 			int end;
@@ -51,7 +53,7 @@ public class BoardItemController {
 		List<Board> boards = boardService.viewAll();
 		Board board = boardService.viewOne(boardId).get();
 		int allPostsCnt = boardItemService.viewAllInOneBoard(boardId).size();
-		int maxPage = allPostsCnt % 5 == 0 && allPostsCnt != 0 ? allPostsCnt / 5 : (int)(allPostsCnt / 5) + 1;		
+		int maxPage = allPostsCnt % 5 == 0 && allPostsCnt != 0 ? allPostsCnt / 5 : (int)(allPostsCnt / 5) + 1;
 		model.addAttribute("postlist", shortenContentList);
 		model.addAttribute("menu", boards);
 	    model.addAttribute("board", board);
@@ -110,8 +112,26 @@ public class BoardItemController {
 		boardItemService.delete(boardItemService.viewOne(postid).get());
 		return "redirect:/post/list?boardid=" + boardid;
 	}
-
+	
 	@GetMapping("/search")
 	public String searchPost(@RequestParam("keyword") String keyword, Model model) {
+		List<BoardItem> shortenContentList = boardItemService.viewAllSearchResult(keyword);
+		for (BoardItem item : shortenContentList) {
+			int end;
+			String preview;
+			
+			if (item.getContent() != null) {
+				end =  item.getContent().length() > 80 ? 80 : item.getContent().length();
+        		preview = item.getContent().substring(0, end) + "...";
+        	} else {
+        		preview = "";
+        	}
+			item.setContent(preview);
+		}
+		
+		List<Board> boards = boardService.viewAll();
+		model.addAttribute("postlist", shortenContentList);
+		model.addAttribute("menu", boards);
 		return "postsearch";
+	}
 }

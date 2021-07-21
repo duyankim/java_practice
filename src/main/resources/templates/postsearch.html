@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head.html :: head"></head>
+<body>
+	<nav th:replace="fragments/nav.html :: nav"></nav>
+	<header
+		th:replace="fragments/header.html :: header(title='search result', subtitle='view all results')"></header>
+<div th:text="${msg}" />
+<!-- Main Content -->
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 col-md-10 mx-auto">
+				<div th:each="post : ${postlist}" class='post-preview'>
+					<a th:href="@{view(postid=${post.id})}">
+						<h2 th:text="${post.title}" class='post-title'></h2>
+						<h3 th:text="${post.content}" class='post-subtitle'></h3>
+					</a>
+					<p class='post-meta'>
+						Posted by <span th:text="${post.author}"></span> on
+					<p th:remove="tag"
+						th:text="${#dates.format(post.date,'yyyy-MM-dd')}" />
+					<hr />
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<footer th:replace="fragments/footer.html :: footer"></footer>
+	<th:block layout:fragment="script">
+		<script th:replace="fragments/scripts.html :: script"></script>
+	</th:block>
+</body>
+</html>

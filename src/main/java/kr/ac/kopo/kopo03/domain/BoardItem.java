@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
@@ -24,7 +26,8 @@ public class BoardItem {
     @Column
     private int id;
     
-    @Column(name = "date", nullable = false)
+    @Column
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date date;
     
     @Column

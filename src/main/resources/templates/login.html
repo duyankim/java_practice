@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head">
+	<meta charset="UTF-8">
+	<title>SpringBoard</title>
+	<link rel="stylesheet" th:href="@{/css/login.css}" />
+	<!-- Google fonts-->
+	<link
+		href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic"
+		rel="stylesheet" type="text/css" />
+	<link
+		href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800"
+		rel="stylesheet" type="text/css" />
+	<!-- Core theme CSS (includes Bootstrap)-->
+	<!-- Bootstrap core JS-->
+</head>
+<body class="img js-fullheight"
+	style="background-image: url('https://www.newstatesman.com/sites/default/files/styles/cropped_article_image/public/blogs_2019/08/summer.jpg?itok=4yyWVJme&c=c52bb2a265294c4c077a2dbc98bfa163'); height: 722px;">
+	<section class="ftco-section">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-md-6 text-center mb-5">
+					<h2 class="heading-section">Login</h2>
+				</div>
+			</div>
+			<div class="row justify-content-center">
+				<div class="col-md-6 col-lg-4">
+					<div class="login-wrap p-0">
+						<h3 class="mb-4 text-center">Have an account?</h3>
+						<form class="signin-form" method="POST" th:action="@{/post/login/100}" th:object="${user}">
+							<div class="form-group">
+								<input th:field="*{userId}" type="text" class="form-control" placeholder="Username"
+									required>
+							</div>
+							<div class="form-group">
+								<input th:field="*{password}" id="password-field" type="password" class="form-control"
+									placeholder="Password" required> 
+									<span toggle="#password-field"
+										class="fa fa-fw fa-eye field-icon toggle-password">
+									</span>
+							</div>
+							<div class="form-group">
+								<button type="submit"
+									class="form-control btn btn-primary submit px-3">
+									Sign In
+								</button>
+							</div>
+							<div class="form-group d-md-flex">
+								<div class="w-50">
+									<label class="checkbox-wrap checkbox-primary">
+										Remember Me 
+										<input type="checkbox" checked=""> 
+										<span class="checkmark"></span>
+									</label>
+								</div>
+								<div class="w-50 text-md-right">
+									<a href="#" style="color: #fff">Forgot Password</a>
+								</div>
+							</div>
+						</form>
+						<p class="w-100 text-center">— Or Sign In With —</p>
+						<div class="social d-flex text-center">
+							<a href="#" class="px-2 py-2 mr-md-1 rounded">
+								<span class="ion-logo-facebook mr-2">Google</span> </a> 
+								<a href="#"	class="px-2 py-2 ml-md-1 rounded"><span
+								class="ion-logo-twitter mr-2"></span> Kakao</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<th:block layout:fragment="script">
+		<script th:replace="fragments/scripts.html :: script"></script>
+	</th:block>
+</body>
+</html>

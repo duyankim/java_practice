@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.ac.kopo.kopo03.domain.Board;
 import kr.ac.kopo.kopo03.domain.BoardItem;
-import kr.ac.kopo.kopo03.repository.BoardItemSpecs;
+import kr.ac.kopo.kopo03.domain.User;
 import kr.ac.kopo.kopo03.service.BoardItemService;
 import kr.ac.kopo.kopo03.service.BoardService;
 import lombok.extern.slf4j.Slf4j;
@@ -133,5 +133,11 @@ public class BoardItemController {
 		model.addAttribute("postlist", shortenContentList);
 		model.addAttribute("menu", boards);
 		return "postsearch";
+	}
+
+	@GetMapping("/login")
+	public String login(Model model) {
+		model.addAttribute("user", new User());
+	    return "login";
 	}
 }
